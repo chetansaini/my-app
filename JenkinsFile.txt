@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs "NodeJS 16"  // You must install and name this version in Jenkins
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/yourusername/my-node-app.git', branch: 'main'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
+
+        stage('Build (Optional)') {
+            steps {
+                echo 'Build step can go here if needed.'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'
+        }
+    }
+}

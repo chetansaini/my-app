@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/chetansaini/my-app.git', branch: 'main'
+                git url: 'https://github.com/yourusername/my-node-app.git', branch: 'main'
             }
         }
 
@@ -17,7 +17,6 @@ pipeline {
                 sh 'npm install'
             }
         }
-
 
         stage('Build (Optional)') {
             steps {

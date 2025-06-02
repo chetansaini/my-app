@@ -1,36 +1,31 @@
 pipeline {
     agent any
-
     tools {
-        nodejs "NodeJS 16"  // You must install and name this version in Jenkins
+        nodejs 'nodejs'
     }
-
     stages {
-        stage('Checkout') {
+        stage('Git Checkout') {
             steps {
-                git url: 'https://github.com/yourusername/my-node-app.git', branch: 'main'
+                git url: "https://github.com/chetansaini/my-app",branch:"main"
             }
         }
-
-        stage('Install Dependencies') {
+        stage('NPM install') {
             steps {
-                sh 'npm install'
+                bat "npm install"
             }
         }
-
-        stage('Build (Optional)') {
+        stage('NPM build') {
             steps {
-                echo 'Build step can go here if needed.'
+                bat "npm run build"
             }
         }
-    }
-
-    post {
-        success {
-            echo 'Build succeeded!'
-        }
-        failure {
-            echo 'Build failed!'
+        stage('copy build to xampp server') {
+            steps {
+                bat "if exist react-app rmdir /s /q react-app"
+                bat "rename build react-app"
+                bat '''if not exist "C:/xampp/htdocs/react-app" (mkdir "C:/xampp/htdocs/react-app") else (rmdir /s /q "C:/xampp/htdocs/react-app")'''
+                bat '''xcopy /y /f /s react-app "C:/xampp/htdocs/react-app/"'''
+            }
         }
     }
 }

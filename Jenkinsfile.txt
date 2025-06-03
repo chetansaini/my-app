@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Email Jenkins Pipeline') {
             steps {
-                mail bcc: '', body: 'Hello, This is an email from jenkins pipeline.', cc: '', from: '', replyTo: '', subject:​​ 'EmailJenkinsPipeline', to: 'sskg12035@gmail.com'
+                mail bcc: '', body: 'Hello, This is an email from jenkins pipeline.', cc: '', from: '', replyTo: '', subject: 'EmailJenkinsPipeline', to: 'saini.chetan09@gmail.com'
             }
         }
     }

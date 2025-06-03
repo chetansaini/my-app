@@ -19,6 +19,9 @@ pipeline {
                 bat "npm run build"
             }
         }
+
+        //test 
+        
         stage('copy build to xampp server') {
             steps {
                 bat "if exist react-app rmdir /s /q react-app"
@@ -27,6 +30,7 @@ pipeline {
                 bat '''xcopy /y /f /s react-app "C:/xampp/htdocs/react-app/"'''
             }
         }
+        
         stage('Email Jenkins Pipeline') {
             steps {
                 mail bcc: '', body: 'Hello, This is an email from jenkins pipeline.', cc: '', from: '', replyTo: '', subject: 'EmailJenkinsPipeline', to: 'saini.chetan09@gmail.com'
